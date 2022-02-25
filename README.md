@@ -1,7 +1,8 @@
 # Installation
 - Install Docker
-- Run `docker pull python`
-- Clone this repo
+- Run `sudo docker pull python`
+- Clone this repo & cd into it
+- Run `sudo docker build -t octo-vision .`
 
 # Running it
-- Run `docker build octo-vision`
+- Run `sudo docker run octo-vision`
