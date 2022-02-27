@@ -1,5 +1,6 @@
 import cv2
 import os
+import np
 
 def draw_rectangle(img, rect):
     (x, y, w, h) = rect
@@ -10,7 +11,7 @@ def draw_text(img, text, x, y):
 
 def detect_face(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    face_cascade = cv2.CascadeClassifier('opencv-files/lbpcascade_frontalface.xml')
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5);
     if (len(faces) == 0):
         return None, None
@@ -50,7 +51,7 @@ faces, labels = prepare_training_data("faces")
 
 # Instantiate the face_recognizer
 
-face_recognizer = cv2.face.createLBPHFaceRecognizer()
+face_recognizer = cv2.face.LBPHFaceRecognizer_create()
 face_recognizer.train(faces, np.array(labels))
 
 def predict(test_img):
