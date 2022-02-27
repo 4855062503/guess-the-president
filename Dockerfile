@@ -7,5 +7,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get install -y python3-opencv
 RUN pip install opencv-contrib-python
 COPY . .
+RUN python train-script.py
 CMD ["python", "app.py"]
-
