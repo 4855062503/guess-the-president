@@ -9,4 +9,4 @@
 
 # How the face recognizer is trained and stored
 
-- The face recognizer is trained using the train script and then the trained classifier is stored as a pickle file to be used with our flask backend for fast read/write
+- The face recognizer is trained using the train script and then the trained classifier is stored as an XML file to later be imported by the Flask app
