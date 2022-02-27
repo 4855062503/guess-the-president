@@ -1,3 +1,5 @@
+# Upload a photo of Trump or Biden and it'll tell you who it is
+
 # Installation
 - Install Docker
 - Run `sudo docker pull python`
