@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import base64
 
 app = Flask(__name__)
 
@@ -7,7 +8,8 @@ def index():
     ''' Returns index template '''
     if request.method == 'POST':
         if request.files['image']:
-            return "has files"
+            upload_file = request.files['image']
+            return str(base64.b64encode(upload_file.read()))
     return render_template('index.html')
 
 if __name__ == "__main__":
