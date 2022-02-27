@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from utils import *
-import base64
 import cv2
 import os
 import np
