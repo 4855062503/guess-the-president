@@ -18,11 +18,14 @@ def index():
     if request.method == 'POST':
         if request.files['image']:
             upload_file = request.files['image']
-            pil_img = Image.open(io.BytesIO(upload_file.read())).convert('RGB')
-            cv2_img = np.array(pil_img)
-            face, rect = detect_face(cv2_img)
-            label, conf = face_recognizer.predict(face)
-            return "Photo is of " + subjects[label]
+            try:
+                pil_img = Image.open(io.BytesIO(upload_file.read())).convert('RGB')
+                cv2_img = np.array(pil_img)
+                face, rect = detect_face(cv2_img)
+                label, conf = face_recognizer.predict(face)
+                return "Photo is of " + subjects[label]
+            except:
+                return "Please ensure your file uploaded is an image"
     return render_template('index.html')
 
 if __name__ == "__main__":
