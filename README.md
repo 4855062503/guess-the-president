@@ -4,10 +4,10 @@
 - Install Docker
 - Run `sudo docker pull python`
 - Clone this repo & cd into it
-- Run `sudo docker build -t octo-vision .`
+- Run `sudo docker build -t president .`
 
 # Running it
-- Run `sudo docker run octo-vision`
+- Run `sudo docker run president`
 
 # How the face recognizer is trained and stored
 
