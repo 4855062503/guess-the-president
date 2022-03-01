@@ -2,3 +2,4 @@ flask
 np
 numpy
 Pillow
+gunicorn

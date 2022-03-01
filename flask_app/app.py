@@ -8,13 +8,13 @@ from PIL import Image
 import np
 import utils
 
-app = Flask(__name__)
+server = Flask(__name__)
 
 face_recognizer = utils.cv2.face.LBPHFaceRecognizer_create()
 face_recognizer.read('model.xml')
 subjects = ["", "Joe Biden", "Donald Trump"]
 
-@app.route('/', methods=['GET', 'POST'])
+@server.route('/', methods=['GET', 'POST'])
 def index():
     ''' Returns index template '''
     if request.method == 'POST':
@@ -30,5 +30,3 @@ def index():
                 return "Please ensure your file uploaded is an image"
     return render_template('index.html')
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True, port=5000)

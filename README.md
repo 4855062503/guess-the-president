@@ -3,6 +3,7 @@
 # Installation
 - Install Docker
 - Run `sudo docker pull python`
+- Run `sudo docker pull nginx`
 - Clone this repo & cd into it
 - Run `sudo docker build -t president .`
 
