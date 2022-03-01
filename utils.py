@@ -1,24 +1,35 @@
-import cv2
+'''
+Utils module for Flask app and train script
+'''
+
 import os
-import np
+import cv2
 
 def draw_rectangle(img, rect):
-    (x, y, w, h) = rect
-    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+    ''' draws rectangle '''
+    (x_dimension, y_dimension, width, height) = rect
+    cv2.rectangle(
+            img, (x_dimension, y_dimension), (x_dimension+width, y_dimension+height), (0, 255, 0), 2
+            )
 
-def draw_text(img, text, x, y):
-    cv2.putText(img, text, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+def draw_text(img, text, x_dimension, y_dimension):
+    ''' draws text '''
+    cv2.putText(img, text, (x_dimension, y_dimension), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 
 def detect_face(img):
+    ''' detects face '''
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5);
-    if (len(faces) == 0):
+    face_cascade = cv2.CascadeClassifier(
+            cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
+            )
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)
+    if len(faces) == 0:
         return None, None
-    (x, y, w, h) = faces[0]
-    return gray[y:y+w, x:x+h], faces[0]
+    (x_dimension, y_dimension, width, height) = faces[0]
+    return gray[y_dimension:y_dimension+width, x_dimension:x_dimension+height], faces[0]
 
 def prepare_training_data(data_folder_path):
+    ''' prepares training data '''
     dirs = os.listdir(data_folder_path)
     #list to hold all subject faces
     faces = []
@@ -28,7 +39,7 @@ def prepare_training_data(data_folder_path):
     #let's go through each directory and read images within it
     for dir_name in dirs:
         if not dir_name.startswith("s"):
-            continue;
+            continue
 
         label = int(dir_name.replace("s", ""))
         subject_dir_path = data_folder_path + "/" + dir_name
@@ -36,14 +47,13 @@ def prepare_training_data(data_folder_path):
         for image_name in subject_images_names:
             #ignore system files like .DS_Store
             if image_name.startswith("."):
-                continue;
+                continue
 
             image_path = subject_dir_path + "/" + image_name
             image = cv2.imread(image_path)
-            face, rect = detect_face(image)
+            face, _ = detect_face(image)
             if face is not None:
                 faces.append(face)
                 labels.append(label)
 
     return faces, labels
-
